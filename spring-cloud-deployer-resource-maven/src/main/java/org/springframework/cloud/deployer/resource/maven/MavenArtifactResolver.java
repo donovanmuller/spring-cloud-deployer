@@ -72,8 +72,6 @@ class MavenArtifactResolver {
 
 	private static final Log log = LogFactory.getLog(MavenArtifactResolver.class);
 
-	private static final String SPRING_REPO_URL = "https://repo.spring.io/libs-snapshot";
-
 	private static final String DEFAULT_CONTENT_TYPE = "default";
 
 	private final RepositorySystem repositorySystem;
@@ -92,21 +90,6 @@ class MavenArtifactResolver {
 	public MavenArtifactResolver(final MavenProperties properties) {
 		Assert.notNull(properties, "MavenProperties must not be null");
 		Assert.notNull(properties.getLocalRepository(), "Local repository path cannot be null");
-		// Add default spring repo as remote repository
-		if (properties.getRemoteRepositories().isEmpty()) {
-			updateDefaultRemoteRepo(properties);
-		}
-		else {
-			boolean springRepoExists = false;
-			for (MavenProperties.RemoteRepository remoteRepository: properties.getRemoteRepositories().values()) {
-				if (remoteRepository.getUrl().contains(SPRING_REPO_URL)) {
-					springRepoExists = true;
-				}
-			}
-			if (!springRepoExists) {
-				updateDefaultRemoteRepo(properties);
-			}
-		}
 		if (log.isDebugEnabled()) {
 			log.debug("Local repository: " + properties.getLocalRepository());
 			log.debug("Remote repositories: " +
@@ -155,11 +138,6 @@ class MavenArtifactResolver {
 			this.remoteRepositories.add(remoteRepositoryBuilder.build());
 		}
 		this.repositorySystem = newRepositorySystem();
-	}
-
-	private void updateDefaultRemoteRepo(MavenProperties properties) {
-		properties.getRemoteRepositories().put("spring" + new Random().nextInt(),
-				new MavenProperties.RemoteRepository("https://repo.spring.io/libs-snapshot"));
 	}
 
 	/**
