@@ -211,6 +211,11 @@ public class MavenProperties {
 			this.url = url;
 		}
 
+		public RemoteRepository(final String url, final Authentication auth) {
+			this.url = url;
+			this.auth = auth;
+		}
+
 		public String getUrl() {
 			return url;
 		}
@@ -233,6 +238,14 @@ public class MavenProperties {
 		private String username;
 
 		private String password;
+
+		public Authentication() {
+		}
+
+		public Authentication(String username, String password) {
+			this.username = username;
+			this.password = password;
+		}
 
 		public String getUsername() {
 			return this.username;
