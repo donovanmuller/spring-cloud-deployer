@@ -17,6 +17,7 @@
 package org.springframework.cloud.deployer.spi.app;
 
 import org.springframework.cloud.deployer.spi.core.AppDeploymentRequest;
+import org.springframework.cloud.deployer.spi.core.AppRedeploymentRequest;
 
 /**
  * SPI defining a runtime environment capable of deploying and managing the
@@ -39,7 +40,6 @@ public interface AppDeployer {
 
 	/**
 	 * The deployment property for the count (number of app instances).
-	 * If not provided, a deployer should assume 1 instance.
 	 */
 	static final String COUNT_PROPERTY_KEY = PREFIX + "count";
 
@@ -116,6 +116,15 @@ public interface AppDeployer {
 	 * @throws IllegalStateException if the app has already been deployed
 	 */
 	String deploy(AppDeploymentRequest request);
+
+	/**
+	 * Redeploy an app using an {@link AppRedeploymentRequest}.
+	 * TODO
+	 *
+	 * @param request the app redeployment request
+	 * @return the deployment id for the app
+	 */
+	String redeploy(AppRedeploymentRequest request);
 
 	/**
 	 * Un-deploy an app using its deployment id. Implementations may perform

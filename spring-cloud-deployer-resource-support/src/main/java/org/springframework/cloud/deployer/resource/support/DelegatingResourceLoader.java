@@ -75,13 +75,6 @@ public class DelegatingResourceLoader implements ResourceLoader, ResourceLoaderA
 
 	/**
 	 * Instantiates a new delegating resource loader.
-	 */
-	public DelegatingResourceLoader() {
-		this(null, null);
-	}
-
-	/**
-	 * Instantiates a new delegating resource loader.
 	 *
 	 * @param loaders the loaders
 	 */
